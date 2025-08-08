@@ -1,0 +1,522 @@
+import React, { useState, useRef } from 'react';
+
+const App = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  const homeRef = useRef(null);
+  const aboutRef = useRef(null);
+  const skillsRef = useRef(null);
+  const projectsRef = useRef(null);
+  const contactRef = useRef(null);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    setSidebarOpen(false);
+  };
+
+  const styles = {
+    app: {
+      position: 'relative',
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    },
+    menuToggle: {
+      position: 'fixed',
+      top: '20px',
+      left: '20px',
+      zIndex: 1001,
+      background: 'rgba(255, 255, 255, 0.95)',
+      border: 'none',
+      borderRadius: '50%',
+      width: '60px',
+      height: '60px',
+      cursor: 'pointer',
+      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+      transition: 'all 0.3s ease',
+      backdropFilter: 'blur(10px)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    hamburger: {
+      width: '24px',
+      height: '2px',
+      background: '#333',
+      position: 'relative',
+      transition: 'all 0.3s ease',
+    },
+    sidebar: {
+      position: 'fixed',
+      left: sidebarOpen ? '0' : '-320px',
+      top: 0,
+      width: '320px',
+      height: '100vh',
+      background: 'rgba(255, 255, 255, 0.98)',
+      backdropFilter: 'blur(20px)',
+      transition: 'left 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+      zIndex: 1000,
+      padding: '100px 30px 30px',
+      overflowY: 'auto',
+      boxShadow: '5px 0 25px rgba(0, 0, 0, 0.1)',
+    },
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(0, 0, 0, 0.5)',
+      zIndex: 999,
+      backdropFilter: 'blur(2px)',
+    },
+    profileSection: {
+      textAlign: 'center',
+      marginBottom: '50px',
+    },
+    profileImage: {
+      width: '100px',
+      height: '100px',
+      borderRadius: '50%',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      margin: '0 auto 20px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '36px',
+      color: 'white',
+      fontWeight: 'bold',
+      boxShadow: '0 10px 30px rgba(102, 126, 234, 0.3)',
+    },
+    profileName: {
+      fontSize: '22px',
+      fontWeight: 600,
+      marginBottom: '8px',
+      color: '#333',
+    },
+    profileTitle: {
+      color: '#666',
+      fontSize: '14px',
+    },
+    navMenu: {
+      listStyle: 'none',
+      padding: 0,
+      margin: 0,
+    },
+    navLink: {
+      display: 'block',
+      width: '100%',
+      padding: '16px 24px',
+      textDecoration: 'none',
+      color: '#333',
+      borderRadius: '12px',
+      transition: 'all 0.3s ease',
+      fontWeight: 500,
+      fontSize: '16px',
+      border: 'none',
+      background: 'transparent',
+      cursor: 'pointer',
+      textAlign: 'left',
+      marginBottom: '8px',
+    },
+    section: {
+      minHeight: '100vh',
+      padding: '80px 40px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+    },
+    sectionContent: {
+      maxWidth: '900px',
+      background: 'rgba(255, 255, 255, 0.95)',
+      padding: '60px',
+      borderRadius: '24px',
+      boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15)',
+      backdropFilter: 'blur(10px)',
+      textAlign: 'center',
+      width: '100%',
+    },
+    heroTitle: {
+      fontSize: '3.5rem',
+      fontWeight: 700,
+      marginBottom: '20px',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      backgroundClip: 'text',
+      lineHeight: 1.2,
+    },
+    heroSubtitle: {
+      fontSize: '1.3rem',
+      color: '#666',
+      marginBottom: '40px',
+      lineHeight: 1.6,
+    },
+    sectionH2: {
+      fontSize: '2.8rem',
+      fontWeight: 700,
+      marginBottom: '30px',
+      color: '#333',
+    },
+    sectionP: {
+      fontSize: '1.1rem',
+      lineHeight: 1.8,
+      color: '#666',
+      marginBottom: '20px',
+    },
+    ctaButton: {
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      color: 'white',
+      padding: '16px 32px',
+      border: 'none',
+      borderRadius: '50px',
+      fontSize: '1.1rem',
+      fontWeight: 600,
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      boxShadow: '0 8px 25px rgba(102, 126, 234, 0.3)',
+    },
+    statsGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+      gap: '30px',
+      marginTop: '40px',
+    },
+    statCard: {
+      textAlign: 'center',
+      padding: '30px 20px',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      color: 'white',
+      borderRadius: '16px',
+      transition: 'transform 0.3s ease',
+    },
+    skillsGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+      gap: '30px',
+      marginTop: '40px',
+    },
+    skillCard: {
+      background: 'white',
+      padding: '30px',
+      borderRadius: '16px',
+      textAlign: 'left',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+      transition: 'all 0.3s ease',
+      border: '2px solid transparent',
+    },
+    projectsGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+      gap: '30px',
+      marginTop: '40px',
+    },
+    projectCard: {
+      background: 'white',
+      padding: '40px',
+      borderRadius: '16px',
+      textAlign: 'left',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+      transition: 'all 0.3s ease',
+      border: '2px solid transparent',
+    },
+    projectTags: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '8px',
+    },
+    projectTag: {
+      background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+      color: 'white',
+      padding: '6px 12px',
+      borderRadius: '20px',
+      fontSize: '0.8rem',
+      fontWeight: 500,
+    },
+    contactInfo: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      gap: '30px',
+      margin: '40px 0',
+    },
+    contactItem: {
+      textAlign: 'center',
+      padding: '20px',
+    },
+    socialLinks: {
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '20px',
+      marginTop: '30px',
+      flexWrap: 'wrap',
+    },
+    socialLink: {
+      background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+      color: '#333',
+      padding: '12px 24px',
+      border: 'none',
+      borderRadius: '25px',
+      fontWeight: 600,
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+    },
+  };
+
+  const backgroundStyles = {
+    home: { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+    about: { background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+    skills: { background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
+    projects: { background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+    contact: { background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
+  };
+
+  return (
+    <div style={styles.app}>
+      {/* Hamburger Menu Button */}
+      <button 
+        style={styles.menuToggle}
+        onClick={toggleSidebar}
+      >
+        <div style={{
+          width: '24px',
+          height: '2px',
+          background: sidebarOpen ? 'transparent' : '#333',
+          position: 'relative',
+          transition: 'all 0.3s ease',
+        }}>
+          <div style={{
+            position: 'absolute',
+            width: '24px',
+            height: '2px',
+            background: '#333',
+            top: sidebarOpen ? '0' : '-8px',
+            left: 0,
+            transform: sidebarOpen ? 'rotate(45deg)' : 'rotate(0)',
+            transition: 'all 0.3s ease',
+          }} />
+          <div style={{
+            position: 'absolute',
+            width: '24px',
+            height: '2px',
+            background: '#333',
+            bottom: sidebarOpen ? '0' : '-8px',
+            left: 0,
+            transform: sidebarOpen ? 'rotate(-45deg)' : 'rotate(0)',
+            transition: 'all 0.3s ease',
+          }} />
+        </div>
+      </button>
+
+      {/* Sidebar */}
+      <div style={styles.sidebar}>
+        <div style={styles.profileSection}>
+          <div style={styles.profileImage}>NB</div>
+          <h3 style={styles.profileName}>Niranjan B</h3>
+          <p style={styles.profileTitle}>Data Analyst & Decision Scientist</p>
+        </div>
+
+        <nav>
+          <ul style={styles.navMenu}>
+            {[
+              { text: 'Home', ref: homeRef },
+              { text: 'About', ref: aboutRef },
+              { text: 'Skills', ref: skillsRef },
+              { text: 'Projects', ref: projectsRef },
+              { text: 'Contact', ref: contactRef },
+            ].map((item, index) => (
+              <li key={index}>
+                <button 
+                  style={styles.navLink}
+                  onClick={() => scrollToSection(item.ref)}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    e.target.style.color = 'white';
+                    e.target.style.transform = 'translateX(8px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'transparent';
+                    e.target.style.color = '#333';
+                    e.target.style.transform = 'translateX(0)';
+                  }}
+                >
+                  {item.text}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      {/* Overlay */}
+      {sidebarOpen && <div style={styles.overlay} onClick={() => setSidebarOpen(false)} />}
+
+      {/* Main Content */}
+      <main>
+        {/* Home Section */}
+        <section ref={homeRef} style={{...styles.section, ...backgroundStyles.home}}>
+          <div style={styles.sectionContent}>
+            <h1 style={styles.heroTitle}>Welcome to My Portfolio</h1>
+            <p style={styles.heroSubtitle}>
+              Results-driven Data Analyst with expertise in machine learning, statistical analysis, and dashboard development
+            </p>
+            <button 
+              style={styles.ctaButton}
+              onClick={() => scrollToSection(aboutRef)}
+            >
+              Learn More About Me
+            </button>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section ref={aboutRef} style={{...styles.section, ...backgroundStyles.about}}>
+          <div style={styles.sectionContent}>
+            <h2 style={styles.sectionH2}>About Me</h2>
+            <p style={styles.sectionP}>
+              Results-driven Data Analyst with a strong foundation in data preprocessing, statistical analysis, and dashboard development. Skilled at extracting insights from structured and unstructured datasets using Python, SQL, and industry standard libraries.
+            </p>
+            <p style={styles.sectionP}>
+              Demonstrated ability to support business decisions through data storytelling, machine learning, and hypothesis-driven experimentation. Currently pursuing M.Tech in Computer Science Engineering while building innovative AI solutions.
+            </p>
+            <div style={styles.statsGrid}>
+              {[
+                { number: '88%', text: 'ML Model Accuracy' },
+                { number: '1.4×', text: 'Revenue Growth' },
+                { number: '20%', text: 'Efficiency Improvement' },
+              ].map((stat, index) => (
+                <div key={index} style={styles.statCard}>
+                  <h3 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '8px' }}>
+                    {stat.number}
+                  </h3>
+                  <p style={{ fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.9)', margin: 0 }}>
+                    {stat.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Skills Section */}
+        <section ref={skillsRef} style={{...styles.section, ...backgroundStyles.skills}}>
+          <div style={styles.sectionContent}>
+            <h2 style={styles.sectionH2}>My Skills</h2>
+            <p style={styles.sectionP}>Here are the technologies and tools I work with:</p>
+            <div style={styles.skillsGrid}>
+              {[
+                { title: 'Languages & Tools', skills: ['Python', 'SQL', 'Java', 'JavaScript', 'Excel', 'AWS'] },
+                { title: 'Libraries & Frameworks', skills: ['Pandas', 'NumPy', 'Scikit-learn', 'Matplotlib', 'TensorFlow', 'Flask'] },
+                { title: 'AI & ML Technologies', skills: ['React', 'LangChain', 'FAISS', 'RAG', 'YOLO', 'CNN'] },
+                { title: 'Databases & Analytics', skills: ['PostgreSQL', 'Data Visualization', 'Statistical Analysis', 'Predictive Modeling'] },
+              ].map((skillSet, index) => (
+                <div key={index} style={styles.skillCard}>
+                  <h3 style={{ fontSize: '1.4rem', marginBottom: '20px', color: '#333', fontWeight: 600 }}>
+                    {skillSet.title}
+                  </h3>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                    {skillSet.skills.map((skill, skillIndex) => (
+                      <li key={skillIndex} style={{
+                        padding: '8px 0',
+                        color: '#666',
+                        fontWeight: 500,
+                        position: 'relative',
+                        paddingLeft: '20px',
+                      }}>
+                        <span style={{
+                          position: 'absolute',
+                          left: 0,
+                          color: '#667eea',
+                          fontWeight: 'bold',
+                        }}>→</span>
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section ref={projectsRef} style={{...styles.section, ...backgroundStyles.projects}}>
+          <div style={styles.sectionContent}>
+            <h2 style={styles.sectionH2}>Key Projects</h2>
+            <p style={styles.sectionP}>Here are some of my notable projects and achievements:</p>
+            <div style={styles.projectsGrid}>
+              {[
+                {
+                  title: 'Interactive AI Diary App',
+                  description: 'Built a multi-platform journaling app using Retrieval Augmented Generation (RAG) for personalized diary summaries. Integrated speech-to-text, emotion analysis, and Nomic embeddings with PostgreSQL for metadata management.',
+                  tags: ['React Native', 'Flask', 'RAG', 'FAISS', 'PostgreSQL'],
+                },
+                {
+                  title: 'AI Interviewer System',
+                  description: 'Created a retrieval-augmented question-answering system using LangChain and FAISS. Improved interview scoring accuracy by 20% with domain-specific embeddings and explainable AI-driven scoring logic.',
+                  tags: ['LangChain', 'FAISS', 'Flask', 'RAG', 'NLP'],
+                },
+                {
+                  title: 'Logistics Optimization Platform',
+                  description: 'Designed a graph-based route optimization model using metaheuristics, reducing delivery time by 19%. Deployed Flask-based dashboard improving fleet utilization by 20%.',
+                  tags: ['Python', 'Graph Theory', 'Flask', 'Optimization'],
+                },
+              ].map((project, index) => (
+                <div key={index} style={styles.projectCard}>
+                  <h3 style={{ fontSize: '1.4rem', marginBottom: '15px', color: '#333', fontWeight: 600 }}>
+                    {project.title}
+                  </h3>
+                  <p style={{ fontSize: '1rem', lineHeight: 1.6, color: '#666', marginBottom: '20px' }}>
+                    {project.description}
+                  </p>
+                  <div style={styles.projectTags}>
+                    {project.tags.map((tag, tagIndex) => (
+                      <span key={tagIndex} style={styles.projectTag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section ref={contactRef} style={{...styles.section, ...backgroundStyles.contact}}>
+          <div style={styles.sectionContent}>
+            <h2 style={styles.sectionH2}>Get In Touch</h2>
+            <p style={styles.sectionP}>I'm always open to discussing new opportunities in data analytics and AI/ML projects.</p>
+            <div style={styles.contactInfo}>
+              {[
+                { title: 'Email', info: 'niranjan382002@gmail.com' },
+                { title: 'Phone', info: '+91 95141 05807' },
+                { title: 'Location', info: 'Coimbatore, Tamil Nadu, India' },
+              ].map((contact, index) => (
+                <div key={index} style={styles.contactItem}>
+                  <h4 style={{ fontSize: '1.2rem', color: '#333', marginBottom: '10px', fontWeight: 600 }}>
+                    {contact.title}
+                  </h4>
+                  <p style={{ color: '#666', margin: 0 }}>
+                    {contact.info}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div style={styles.socialLinks}>
+              {['LinkedIn', 'GitHub'].map((social, index) => (
+                <button key={index} style={styles.socialLink}>
+                  {social}
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+};
+
+export default App;

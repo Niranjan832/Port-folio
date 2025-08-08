@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #111;
+  color: white;
+  padding: 1rem;
+  position: fixed;
+  transition: transform 0.3s ease-in-out;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar .toggle-btn {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.sidebar .profile-pic {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.sidebar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.sidebar nav a {
+  display: block;
+  margin: 10px 0;
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sidebar nav a:hover {
+  color: #fff;
+}
+
+main {
+  margin-left: 260px;
+  padding: 2rem;
+  flex: 1;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: 2rem 0;
+}
