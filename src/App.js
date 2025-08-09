@@ -20,18 +20,37 @@ const App = () => {
     setSidebarOpen(false);
   };
 
-  const colors = {
-    primary: '#2563eb',    // Modern blue
-    secondary: '#1e40af',  // Darker blue
-    accent: '#3b82f6',     // Light blue
-    dark: '#1f2937',       // Dark gray
-  };
+const colors = {
+  // Core brand colors
+  primary: '#2563eb',   // Modern blue
+  secondary: '#1e40af', // Darker blue
+  accent: '#3b82f6',    // Light blue
+
+  // Neutral base
+  dark: '#1f2937',      // Dark gray
+  medium: '#4b5563',    // Medium gray
+  light: '#f3f4f6',     // Light gray / off-white
+
+  // Background options
+  backgroundLight: '#f9fafb', // Very light background
+  backgroundDark: '#111827',  // Deep dark background
+
+  // Complementary highlight (warm tone to offset the blues)
+  highlight: '#f59e0b', // Amber
+  highlightSoft: '#fde68a', // Soft yellow
+
+  // Alert/Status colors
+  success: '#10b981',   // Green
+  warning: '#facc15',   // Yellow
+  danger: '#ef4444',    // Red
+};
+
 
   const styles = {
     app: {
       position: 'relative',
       fontFamily: "'Inter', 'Segoe UI', sans-serif",
-      backgroundColor: '#f8fafc',
+      backgroundColor: '#9d9ae0ff',
       lineHeight: 1.6,
     },
     menuToggle: {
@@ -39,7 +58,7 @@ const App = () => {
       top: '20px',
       left: '20px',
       zIndex: 1001,
-      background: 'white',
+      background: '#FAF3E0',
       border: `2px solid ${colors.primary}`,
       borderRadius: '12px',
       width: '52px',
@@ -57,7 +76,7 @@ const App = () => {
       top: 0,
       width: '320px',
       height: '100vh',
-      background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+      background: 'linear-gradient(180deg, #bbd3beff 0%, #a6b9c9ff 100%)',
       borderRight: `3px solid ${colors.primary}`,
       transition: 'left 0.3s ease',
       zIndex: 1000,
@@ -176,7 +195,7 @@ const App = () => {
       backgroundColor: '#ffffff',
     },
     sectionAlt: {
-      backgroundColor: '#f8fafc',
+      backgroundColor: '#FAF3E0',
     },
     sectionContent: {
       maxWidth: '900px',
